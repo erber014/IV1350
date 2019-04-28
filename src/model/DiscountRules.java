@@ -4,6 +4,6 @@ public class DiscountRules
 {
   public double calcDiscountedPrice(double totalPrice)
   {
-    return 2.0D;
+    return 2.0;
   }
 }
