@@ -30,4 +30,12 @@ public class CashRegister
         double change = payment - cost;
         return change;
     }
+    
+    /**
+     * 
+     * @return Returns the balance, that is, the amount of money in the register. 
+     */
+    public double getBalance (){
+        return this.balance;
+    }
 }

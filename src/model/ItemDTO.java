@@ -8,7 +8,7 @@ public class ItemDTO {
 	private double price;
 	private int itemIdentifier;
 	private String itemDescription;
-	private double vAT;
+	private double VAT;
 	private int quantity;
         
         /**
@@ -23,7 +23,7 @@ public class ItemDTO {
 		this.price = price;
 		this.itemIdentifier = itemIdentifier;
 		this.itemDescription = itemDescription;
-		this.vAT = VAT;
+		this.VAT = VAT;
 		this.quantity = quantity;
 	}
 	
@@ -54,7 +54,7 @@ public class ItemDTO {
          * @return Returns the VAT rate of an item
          */
 	public double getVAT() {
-		return this.vAT;
+		return this.VAT;
 	}
 	
         /**
