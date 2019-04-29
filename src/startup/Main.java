@@ -9,12 +9,14 @@ import integration.InventorySystem;
 import integration.AccountingSystem;
 import view.View;
 
+
 public class Main {
-	public static void main(String[] args) {
-		SystemCreator creator = new SystemCreator();
-		InventorySystem InventorySystem = creator.getInventorySystem();
-		AccountingSystem AccountingSystem = creator.getAccountingSystem();
-		CashRegister CashRegister = new CashRegister();
+    
+    public static void main(String[] args) {
+	SystemCreator creator = new SystemCreator();
+	InventorySystem InventorySystem = creator.getInventorySystem();
+	AccountingSystem AccountingSystem = creator.getAccountingSystem();
+	CashRegister CashRegister = new CashRegister();
         Controller contr = new Controller(InventorySystem, AccountingSystem, CashRegister);
         View view = new View(contr);
         Printer printer = new Printer();

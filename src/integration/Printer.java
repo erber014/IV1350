@@ -5,8 +5,16 @@ import java.util.ArrayList;
 import model.ItemDTO;
 import model.Receipt;
 
+/**
+ * Represents a printer in a grocery store, that prints receipts.
+ * @author Erik
+ */
 public class Printer {
 	
+        /**
+         * Prints all necessary information about a sale onto a receipt
+         * @param receipt Contains the information to be printed
+         */
 	public void printReciept(Receipt receipt) {
 		System.out.println("");
 		System.out.println("Receipt:");
