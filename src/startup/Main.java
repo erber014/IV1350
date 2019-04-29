@@ -27,9 +27,9 @@ public class Main {
         view.addItem(2, 4);
         view.addItem(3, 4);
         view.addItem(0, 1);
-        view.signalDiscountRequest(20381739);
-        view.pay(110);
-        Receipt receipt = view.requestReceipt();
-        printer.printReciept(receipt);
+        //view.signalDiscountRequest(20381739);
+        view.pay(200);
+        view.requestReceipt();
+        
     }
 }

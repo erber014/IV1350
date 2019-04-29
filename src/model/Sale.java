@@ -8,12 +8,12 @@ import java.util.ArrayList;
  * @author Erik
  */
 public class Sale {
-    private int vAT;
+    private double VAT = 0.25;
     private ArrayList<ItemDTO> itemList = new ArrayList<ItemDTO>();
     private double runningTotal = 0.0;
-    private int itemsExisting = 0;
     private double change;
     private double payment;
+    private double totalPriceIncludingVAT;
     CashRegister cashRegister;
     boolean itemFlag = false;
     boolean discountFlag = false;
@@ -21,7 +21,8 @@ public class Sale {
     /**
      * addItem adds an item to an itemlist. If the itemlist is empty it simply
      * adds the item. If the itemlist contains an item of the same kind (same identifier)
-     * the method simply updates the quantity of that item.
+     * the method simply updates the quantity of that item. If none of the above,
+     * the method simply adds an item to the itemlist.
      * @param item the item to be added to the list
      * @param quantity the quantity of the item
      */
@@ -29,8 +30,8 @@ public class Sale {
 	if(itemList.isEmpty()) {
             itemList.add(item);
 	}	
-	for(int i = 0; i < itemsExisting + 1; i++) {
-            if(item.getItemIdentifier() == itemList.get(i).getItemIdentifier() && itemFlag == false) {
+	for(int i = 0; i < itemList.size(); i++) {
+            if(itemAlreadyScanned(item, i)) {
 		itemList.get(i).updateQuantity(quantity);
 		itemFlag = true;
             } 
@@ -58,8 +59,9 @@ public class Sale {
      * @param newTotalPrice the final price of the sale.
      * @return The amount of change the customer receives
      */
-    public double pay(double payment, double newTotalPrice) {
-	change = cashRegister.calculateChange(payment, newTotalPrice);
+    public double pay(double payment) {
+        double totalPrice = totalPriceIncludingVAT();
+	change = cashRegister.calculateChange(payment, totalPrice);
 	this.payment = payment;
 	cashRegister.addPayment(payment - change);
 	return change;
@@ -74,21 +76,25 @@ public class Sale {
     private void calculateRunningTotal(ItemDTO foundItem, int itemQuantity) {
         this.runningTotal += foundItem.getPrice() * itemQuantity;
     }
+    
+    /**
+     * Calculates the discounted price, based on discount rules.
+     * @return The discounted price of the sale.
+     */
+    /*public double calcDiscountedPrice() {
+        totalPrice();
+	discountFlag = true;
+        double discPrice = DiscountRules.calcDiscountedPrice(this.runningTotal);
+	return discPrice;
+    }*/
 	
     /**
      * 
      * @return The runningtotal of the sale. This value becomes the total price of the
-     * sale after no more items are added to the sale. The running total is decreased
-     * by an amount determined by the discount rules should the customer ask for a 
-     * discount.
+     * sale after no more items are added to the sale.
      */
     public double getRunningTotal() {
-	if(!discountFlag) {
-            return this.runningTotal;
-            } 
-        else {
-            return runningTotal * 0.8;
-        }
+	return this.runningTotal;
     }
 
     /**
@@ -96,15 +102,7 @@ public class Sale {
      * @return Returns the list of items that is a part of the sale.
      */
     public ArrayList<ItemDTO> getItemList() {
-	return itemList;
-    }
-	
-    /**
-     * What does this do?
-     * @return 
-     */
-    public int getExistingItems() {
-	return itemsExisting + 1;
+	return this.itemList;
     }
 	
     /**
@@ -117,6 +115,10 @@ public class Sale {
 	return Math.round(change * 100.0) / 100.0;
     }
 	
+    public double getTotalPrice(){
+        return this.totalPriceIncludingVAT;
+    }
+    
     /**
      * 
      * @return The amount of money the customer pays.
@@ -124,13 +126,15 @@ public class Sale {
     public double getAmountPaid() {
 	return payment;
     }
-	
-    /**
-     * 
-     * @return The discounted price of the sale.
-     */
-    public double calcDiscountedPrice() {
-	discountFlag = true;
-	return this.runningTotal * 0.8;
+    private double totalPriceIncludingVAT (){
+        this.totalPriceIncludingVAT = this.runningTotal + this.runningTotal*this.VAT;
+        return totalPriceIncludingVAT;
+    }
+    private boolean itemAlreadyScanned(ItemDTO item, int i) {
+        if (item.getItemIdentifier() == itemList.get(i).getItemIdentifier() && itemFlag == false){
+            return true;
+        }   
+        else
+            return false;
     }
 }

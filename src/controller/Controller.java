@@ -14,11 +14,12 @@ import model.SaleDTO;
  * @author Erik
  */
 public class Controller {
-	private Sale sale;
-	private InventorySystem inventorySystem;
-	private AccountingSystem accountingSystem;
-	private CashRegister cashRegister;
-	private double totalPrice;
+    private Sale sale;
+    private InventorySystem inventorySystem;
+    private AccountingSystem accountingSystem;
+    private CashRegister cashRegister;
+    private double totalPrice;
+    
     /**
     * Creates a new instance of controller with references to inventorysystem
     * accountingsystem and cashRegister
@@ -30,9 +31,9 @@ public class Controller {
     	this.inventorySystem = inventorySystem;
     	this.accountingSystem = accountingSystem;
     	this.cashRegister = cashRegister;
-	}
+    }
 
-	public void startNewSale() {
+    public void startNewSale() {
         sale = new Sale();
         sale.turnOnCashRegister();
     }
@@ -60,7 +61,7 @@ public class Controller {
      * @return returns the amount of change that the customer is to receive.
      */
     public double pay (double amount) {
-    	double change = sale.pay(amount, totalPrice);
+    	double change = sale.pay(amount);
     	return change;
     }
     
@@ -77,17 +78,18 @@ public class Controller {
      * a discount being applied to the current sale.
      * @return Returns the new total price, after the discount has been calculated
      */
-    public double signalDiscountRequest() {
-    	totalPrice = sale.calcDiscountedPrice();
-    	return totalPrice;
-    }
+    //public double signalDiscountRequest() {
+    //	totalPrice = sale.calcDiscountedPrice();
+    //	return totalPrice;
+    //}
+    
     /**
      * Creates an instance of the receipt class, which contains all the needed
      * information about the sale.
      * @return Returns an instance of the receipt class.
      */
     public Receipt requestReceipt() {
-    	Receipt receipt = new Receipt(sale, sale.getExistingItems());
+    	Receipt receipt = new Receipt(sale);
     	return receipt;
     }
 } 

@@ -11,8 +11,8 @@ public class DiscountRules
      * @param totalPrice The price to be discounted
      * @return Returns the discounted price.
      */
-    public double calcDiscountedPrice(double totalPrice)
+    public static double calcDiscountedPrice(double totalPrice)
     {
-        return 2.0;
+        return 0.8*totalPrice;
     }
 }

@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import integration.Printer;
 import java.lang.Math;
 import model.ItemDTO;
 import model.Receipt;
@@ -62,19 +63,19 @@ public class View {
      * @param customerId The discount request requiers the customer to give his id.
      * This is part of the rules regarding discounts.
      */
-    public void signalDiscountRequest(int customerId) {
-    	double newTotalPrice = controller.signalDiscountRequest();
-    	printDiscountedPrice(newTotalPrice);
-    }
+    //public void signalDiscountRequest(int customerId) {
+    //	double newTotalPrice = controller.signalDiscountRequest();
+    //	printDiscountedPrice(newTotalPrice);
+    //}
     
     /**
-     * WHY ARE YOU HERE?
-     * Sends an object of the type receipt to view so it can be 
-     * @return 
-     */ 
-    public Receipt requestReceipt() {
+     * requestReceipt prints out all the information on the receipt.
+     */
+    public void requestReceipt() {
     	Receipt receipt = controller.requestReceipt();
-    	return receipt;
+        Printer printer = new Printer();
+        printer.printReceipt(receipt);
+        
     }
     
     private void printItemOnScreen(ItemDTO IDTO, int quantity) {
@@ -82,9 +83,9 @@ public class View {
     	System.out.println("Item: " + IDTO.getItemDescription() + " x" + quantity + " Price: " + IDTO.getPrice() * quantity + " Running Total: " + runningTotal);
     }
     
-    private void printDiscountedPrice(double price) {
-    	System.out.println("Discounted price: " + price);
-    }
+    //private void printDiscountedPrice(double price) {
+    //	System.out.println("Discounted price: " + price);
+    //}
     
     private void printChange(double amountPaid, double change) {
     	System.out.println("Amount paid : " + amountPaid + " Change: " + Math.round(change * 100.0) / 100.0);

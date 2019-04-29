@@ -7,15 +7,15 @@ import model.Sale;
  * @author Erik
  */
 public class InventorySystem {
-	ItemDTO inventory[] = new ItemDTO[3];
+	private ItemDTO inventory[] = new ItemDTO[3];
 	
         /**
          * Creates an instance of the inventorysystem, with items in it.
          */
 	public InventorySystem() {
-		inventory[0] = new ItemDTO(10.0, 0, "Banan", 12.5, 0);
-		inventory[1] = new ItemDTO(15.0, 1, "Äpple", 12.5, 0);
-		inventory[2] = new ItemDTO(8.5, 2, "Apelsin", 12.5, 0);
+            this.inventory[0] = new ItemDTO(10.0, 0, "Banan", 12.5, 0);
+            this.inventory[1] = new ItemDTO(15.0, 1, "Äpple", 12.5, 0);
+            this.inventory[2] = new ItemDTO(8.5, 2, "Apelsin", 12.5, 0);
 	}
 	/**
          * Finds an item in the inventorysystem with the same itemidentifier

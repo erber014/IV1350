@@ -16,24 +16,24 @@ public class Receipt {
     private LocalDateTime dateTime;
     private DateTimeFormatter time;
     private String formattedDate, storeName, adress;
-    private int items;
+    //private int items;
 	
     /**
      * Creates a receipt, containing the necessary information about the sale
      * @param sale The sale about which, all necessary information is received
      * @param items 
      */
-    public Receipt(Sale sale, int items) {
-	storeName = "Store";
-	adress = "Streetadress 1";
+    public Receipt(Sale sale) {
+	storeName = "Storey McStoreFace";
+	adress = "Rodeo Drive 1";
 	amountPaid = sale.getAmountPaid();
 	change = sale.getChange();
 	itemList = sale.getItemList();
-	total = sale.getRunningTotal();
+	total = sale.getTotalPrice();
 	dateTime = LocalDateTime.now();
 	time = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 	formattedDate = dateTime.format(time);
-	this.items = items;
+	//this.items = items;
     }
 
     /**
@@ -65,9 +65,9 @@ public class Receipt {
      * WTF IS THIS???
      * @return Returns items
      */
-    public int getItems() {
+    /*public int getItems() {
         return items;
-    }
+    }*/
     
     /**
      * 
@@ -76,7 +76,7 @@ public class Receipt {
     public double getTotal() {
 	return total;
     }
-
+    
     /**
      * 
      * @return The time that the sale was completed
