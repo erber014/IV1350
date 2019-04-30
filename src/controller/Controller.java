@@ -6,7 +6,8 @@ import model.Receipt;
 import model.Sale;
 import integration.InventorySystem;
 import integration.AccountingSystem;
-import model.SaleDTO;
+import integration.SystemCreator;
+
 
 /**
  * Controller is the class that ties together what happens in the view with what
@@ -37,8 +38,8 @@ public class Controller {
      * The method creates an instance of the Sale class. It also turns on the
      * cash Register in the grocery store.
      */
-    public void startNewSale() {
-        sale = new Sale();
+    public void startNewSale(SystemCreator creator) {
+        sale = new Sale(creator);
         sale.turnOnCashRegister();
     }
     
@@ -67,8 +68,12 @@ public class Controller {
      * @return returns the amount of change that the customer is to receive.
      */
     public double pay (double amount) {
-    	double change = sale.pay(amount);
-    	return change;
+    	 if(amount > sale.getTotalPrice()) {
+            double change = sale.pay(amount);
+            return change;
+        } else {
+            return -1.0;
+        }
     }
     
     /**
@@ -93,4 +98,4 @@ public class Controller {
     	Receipt receipt = new Receipt(sale);
     	return receipt;
     }
-} 
+}

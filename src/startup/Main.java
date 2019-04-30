@@ -20,7 +20,7 @@ public class Main {
         Controller contr = new Controller(InventorySystem, AccountingSystem, CashRegister);
         View view = new View(contr);
         Printer printer = new Printer();
-        view.runSale();
+        view.runSale(creator);
         view.addItemsAndPrintToConsole();
         view.pay(200);
         view.printReceipt();

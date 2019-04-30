@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import integration.Printer;
+import integration.SystemCreator;
 import java.lang.Math;
 import model.ItemDTO;
 import model.Receipt;
@@ -42,8 +43,8 @@ public class View {
     /**
      * The method represents the action of the cashier starting a new sale.
      */
-    public void runSale() {
-    	controller.startNewSale();
+    public void runSale(SystemCreator creator) {
+    	controller.startNewSale(creator);
         System.out.println("New sale was started.");
     }
     
@@ -58,7 +59,13 @@ public class View {
     public void pay(double amount) {
     	double amountPaid = amount;
     	double change = controller.pay(amount);
-    	printTotalPriceAndChange(amountPaid, change);
+        if(change > 0) {
+            printTotalPriceAndChange(amountPaid, change);
+        } else {
+            System.out.println("Insufficient ammount paid.");
+        }
+        
+    	
     }
     
     /**

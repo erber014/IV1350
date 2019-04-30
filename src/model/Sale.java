@@ -3,6 +3,7 @@ package model;
 import integration.AccountingSystem;
 import integration.InventorySystem;
 import integration.Printer;
+import integration.SystemCreator;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,7 @@ import java.util.ArrayList;
  * @author Erik
  */
 public class Sale {
+    private SystemCreator creator;
     private double VAT = 0.25;
     private ArrayList<ItemDTO> itemList = new ArrayList<ItemDTO>();
     private ArrayList<Integer> itemQuantity = new ArrayList<Integer>();
@@ -21,6 +23,11 @@ public class Sale {
     boolean itemFlag = false;
     boolean discountFlag = false;
 
+    public Sale (SystemCreator creator){
+        this.creator = creator;
+    }
+    
+    
     /**
      * addItem adds an item to an itemlist. If the itemlist is empty it simply
      * adds the item. If the itemlist contains an item of the same kind (same identifier)
@@ -73,8 +80,8 @@ public class Sale {
 	this.payment = payment;
 	cashRegister.addPayment(payment - change);
 	
-        InventorySystem inventorySystem = new InventorySystem();
-        AccountingSystem accountingSystem = new AccountingSystem();
+        InventorySystem inventorySystem = creator.getInventorySystem();
+        AccountingSystem accountingSystem = creator.getAccountingSystem();
         inventorySystem.saveSaleInformation(this);
         accountingSystem.saveSaleInformation(this);
         
@@ -137,10 +144,24 @@ public class Sale {
     public double getAmountPaid() {
 	return payment;
     }
+    
+    /**
+     * 
+     * @param amount sets the itemquantity 
+     */
+    public void setItemQuantity(int i, int amount){
+        this.itemQuantity.set(i, amount);
+    }
+    
+    public void setItemList(int i, ItemDTO item){
+        this.itemList.set(i, item);
+    }
+    
     private double totalPriceIncludingVAT (){
         this.totalPriceIncludingVAT = this.runningTotal + this.runningTotal*this.VAT;
         return totalPriceIncludingVAT;
     }
+    
     private boolean itemAlreadyScanned(ItemDTO item, int i) {
         if (item.getItemIdentifier() == itemList.get(i).getItemIdentifier() && itemFlag == false){
             return true;
