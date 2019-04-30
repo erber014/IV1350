@@ -23,16 +23,20 @@ public class Controller {
     /**
     * Creates a new instance of controller with references to inventorysystem
     * accountingsystem and cashRegister
-    * @param inventorySystem 
-    * @param accountingSystem
-    * @param cashRegister 
+    * @param inventorySystem The inventorySystem of the grocery store
+    * @param accountingSystem The accountingSystem of the grocery store.
+    * @param cashRegister The cashregister of the grocery store.
     */
     public Controller(InventorySystem inventorySystem, AccountingSystem accountingSystem, CashRegister cashRegister) {
     	this.inventorySystem = inventorySystem;
     	this.accountingSystem = accountingSystem;
     	this.cashRegister = cashRegister;
     }
-
+    
+    /**
+     * The method creates an instance of the Sale class. It also turns on the
+     * cash Register in the grocery store.
+     */
     public void startNewSale() {
         sale = new Sale();
         sale.turnOnCashRegister();
@@ -56,7 +60,9 @@ public class Controller {
     
     /**
      * pay calls upon the method pay in the class sale which represents
-     * the act of the customer paying for a sale.
+     * the act of the customer paying for a sale. It calculates the amount of change
+     * that the customer is to receive and it saves sale information in the external
+     * systems AccountingSystem and InventorySystem.
      * @param amount represents the amount the customer pays
      * @return returns the amount of change that the customer is to receive.
      */
@@ -73,15 +79,6 @@ public class Controller {
     	totalPrice = sale.getRunningTotal();
     	return sale.getRunningTotal();
     }
-    /**
-     * Represents the action of a customer asking for a discount, which leads to
-     * a discount being applied to the current sale.
-     * @return Returns the new total price, after the discount has been calculated
-     */
-    //public double signalDiscountRequest() {
-    //	totalPrice = sale.calcDiscountedPrice();
-    //	return totalPrice;
-    //}
     
     /**
      * Creates an instance of the receipt class, which contains all the needed

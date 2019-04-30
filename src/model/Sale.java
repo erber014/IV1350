@@ -1,5 +1,7 @@
 package model;
 
+import integration.AccountingSystem;
+import integration.InventorySystem;
 import integration.Printer;
 import java.util.ArrayList;
 
@@ -54,17 +56,26 @@ public class Sale {
     }
     
     /**
-     * pay represents the action of the customer paying for the sale.
+     * pay represents the action of the customer paying for the sale. The pay method
+     * sends the information about the sale, to the external systems InventorySystem
+     * and AccountingSystem, so that the information may be saved.
      * @param payment The amount of money the customer pays
      * @param newTotalPrice the final price of the sale.
      * @return The amount of change the customer receives
      */
     public double pay(double payment) {
+        
         double totalPrice = totalPriceIncludingVAT();
 	change = cashRegister.calculateChange(payment, totalPrice);
 	this.payment = payment;
 	cashRegister.addPayment(payment - change);
-	return change;
+	
+        InventorySystem inventorySystem = new InventorySystem();
+        AccountingSystem accountingSystem = new AccountingSystem();
+        inventorySystem.saveSaleInformation(this);
+        accountingSystem.saveSaleInformation(this);
+        
+        return change;
     }
     
     /**
@@ -76,17 +87,6 @@ public class Sale {
     private void calculateRunningTotal(ItemDTO foundItem, int itemQuantity) {
         this.runningTotal += foundItem.getPrice() * itemQuantity;
     }
-    
-    /**
-     * Calculates the discounted price, based on discount rules.
-     * @return The discounted price of the sale.
-     */
-    /*public double calcDiscountedPrice() {
-        totalPrice();
-	discountFlag = true;
-        double discPrice = DiscountRules.calcDiscountedPrice(this.runningTotal);
-	return discPrice;
-    }*/
 	
     /**
      * 
@@ -114,7 +114,11 @@ public class Sale {
     public double getChange() {
 	return Math.round(change * 100.0) / 100.0;
     }
-	
+
+    /**
+     * 
+     * @return The totalPrice of the sale, including the VAT (tax).
+     */
     public double getTotalPrice(){
         return this.totalPriceIncludingVAT;
     }

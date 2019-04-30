@@ -48,7 +48,10 @@ public class View {
     }
     
     /**
-     * pay Represents the action of the customer paying for the sale.
+     * pay Represents the action of the customer paying for the sale. It also
+     * calculates the amount of change that the customer is to receive and it
+     * saves the information about the sale in the external systems AccountingSystem
+     * and InventorySystem.
      * 
      * @param amount The amount of money that the customer pays.
      */
@@ -59,19 +62,22 @@ public class View {
     }
     
     /**
-     * Represents the action of the customer asking for a discount.
-     * @param customerId The discount request requiers the customer to give his id.
-     * This is part of the rules regarding discounts.
+     * This method represents the cashier scanning items, it also prints the
+     * information about the scanned items aswell as the running total.
      */
-    //public void signalDiscountRequest(int customerId) {
-    //	double newTotalPrice = controller.signalDiscountRequest();
-    //	printDiscountedPrice(newTotalPrice);
-    //}
+    public void printSaleInformation(){
+        addItem(0, 2);
+        addItem(0, 2);
+        addItem(1, 3);
+        addItem(2, 4);
+        addItem(3, 4);
+        addItem(0, 1);
+    }
     
     /**
      * requestReceipt prints out all the information on the receipt.
      */
-    public void requestReceipt() {
+    public void printReceipt() {
     	Receipt receipt = controller.requestReceipt();
         Printer printer = new Printer();
         printer.printReceipt(receipt);
@@ -83,9 +89,6 @@ public class View {
     	System.out.println("Item: " + IDTO.getItemDescription() + " x" + quantity + " Price: " + IDTO.getPrice() * quantity + " Running Total: " + runningTotal);
     }
     
-    //private void printDiscountedPrice(double price) {
-    //	System.out.println("Discounted price: " + price);
-    //}
     
     private void printChange(double amountPaid, double change) {
     	System.out.println("Amount paid : " + amountPaid + " Change: " + Math.round(change * 100.0) / 100.0);

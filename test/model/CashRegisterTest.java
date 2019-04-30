@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.*;
-/*import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-*/
+
 /**
  * Test for the methods in the CashRegister class.
  * @author Erik
@@ -35,6 +25,9 @@ public class CashRegisterTest {
         assertEquals(30.5, instance.getBalance());
     }
     
+    /**
+     * Test for the addPayment method, with negative input.
+     */
     @Test
     public void testAddPaymentWithNegativeDouble() {
         double payment = -10.5;
@@ -57,10 +50,10 @@ public class CashRegisterTest {
     }
     
     /**
-     * 
+     * Test of the calculateChange method, with a payment of zero.
      */
     @Test
-    public void testCalculateChangeNegativeDouble(){
+    public void testCalculateChangeWithPaymentZero(){
         double payment = 0.0;
         double cost = 25.0;
         CashRegister instance = new CashRegister();

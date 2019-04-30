@@ -21,15 +21,9 @@ public class Main {
         View view = new View(contr);
         Printer printer = new Printer();
         view.runSale();
-        view.addItem(0, 2);
-        view.addItem(0, 2);
-        view.addItem(1, 3);
-        view.addItem(2, 4);
-        view.addItem(3, 4);
-        view.addItem(0, 1);
-        //view.signalDiscountRequest(20381739);
+        view.printSaleInformation();
         view.pay(200);
-        view.requestReceipt();
+        view.printReceipt();
         
     }
 }

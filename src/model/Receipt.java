@@ -45,7 +45,6 @@ public class Receipt {
     }
     
     /**
-     * 
      * @return The amount of change the customer receives
      */
     public double getChange() {
@@ -60,14 +59,6 @@ public class Receipt {
     public ArrayList<ItemDTO> getItemList() {
         return itemList;
     }
-    
-    /**
-     * WTF IS THIS???
-     * @return Returns items
-     */
-    /*public int getItems() {
-        return items;
-    }*/
     
     /**
      * 
