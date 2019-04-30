@@ -21,7 +21,7 @@ public class Main {
         View view = new View(contr);
         Printer printer = new Printer();
         view.runSale();
-        view.printSaleInformation();
+        view.addItemsAndPrintToConsole();
         view.pay(200);
         view.printReceipt();
         

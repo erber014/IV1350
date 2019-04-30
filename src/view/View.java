@@ -58,14 +58,14 @@ public class View {
     public void pay(double amount) {
     	double amountPaid = amount;
     	double change = controller.pay(amount);
-    	printChange(amountPaid, change);
+    	printTotalPriceAndChange(amountPaid, change);
     }
     
     /**
      * This method represents the cashier scanning items, it also prints the
      * information about the scanned items aswell as the running total.
      */
-    public void printSaleInformation(){
+    public void addItemsAndPrintToConsole(){
         addItem(0, 2);
         addItem(0, 2);
         addItem(1, 3);
@@ -85,12 +85,14 @@ public class View {
     }
     
     private void printItemOnScreen(ItemDTO IDTO, int quantity) {
-    	double runningTotal = controller.indicateAllItemsRegistered();
+    	double runningTotal = controller.getRunningTotal();
     	System.out.println("Item: " + IDTO.getItemDescription() + " x" + quantity + " Price: " + IDTO.getPrice() * quantity + " Running Total: " + runningTotal);
     }
     
     
-    private void printChange(double amountPaid, double change) {
+    private void printTotalPriceAndChange(double amountPaid, double change) {
+        double totalPrice = controller.indicateAllItemsRegistered();
+        System.out.println("Total cost (Including VAT): " + totalPrice);
     	System.out.println("Amount paid : " + amountPaid + " Change: " + Math.round(change * 100.0) / 100.0);
     }
    

@@ -12,11 +12,11 @@ public class Receipt {
     private double amountPaid;
     private double change;	
     private ArrayList<ItemDTO> itemList;
+    private ArrayList<Integer> itemQuantity;
     private double total;
     private LocalDateTime dateTime;
     private DateTimeFormatter time;
     private String formattedDate, storeName, adress;
-    //private int items;
 	
     /**
      * Creates a receipt, containing the necessary information about the sale
@@ -25,15 +25,15 @@ public class Receipt {
      */
     public Receipt(Sale sale) {
 	storeName = "Storey McStoreFace";
-	adress = "Rodeo Drive 1";
+	adress = "Sesame Street 1";
 	amountPaid = sale.getAmountPaid();
 	change = sale.getChange();
 	itemList = sale.getItemList();
+        itemQuantity = sale.getItemQuantity();
 	total = sale.getTotalPrice();
 	dateTime = LocalDateTime.now();
 	time = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 	formattedDate = dateTime.format(time);
-	//this.items = items;
     }
 
     /**
@@ -58,6 +58,10 @@ public class Receipt {
      */
     public ArrayList<ItemDTO> getItemList() {
         return itemList;
+    }
+    
+    public ArrayList<Integer> getItemQuantity() {
+        return this.itemQuantity;
     }
     
     /**

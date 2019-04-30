@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Sale {
     private double VAT = 0.25;
     private ArrayList<ItemDTO> itemList = new ArrayList<ItemDTO>();
+    private ArrayList<Integer> itemQuantity = new ArrayList<Integer>();
     private double runningTotal = 0.0;
     private double change;
     private double payment;
@@ -31,16 +32,18 @@ public class Sale {
     public void addItem(ItemDTO item, int quantity) {	
 	if(itemList.isEmpty()) {
             itemList.add(item);
+            itemQuantity.add(quantity);
 	}	
 	for(int i = 0; i < itemList.size(); i++) {
             if(itemAlreadyScanned(item, i)) {
-		itemList.get(i).updateQuantity(quantity);
+		int quantTemp = itemQuantity.get(i);
+                itemQuantity.set(i,quantTemp + quantity);
 		itemFlag = true;
             } 
 	}		
 	if(!itemFlag){ 
             itemList.add(item);
-            item.updateQuantity(quantity);
+            itemQuantity.add(quantity);
 	}
         
 	itemFlag = false;
@@ -104,7 +107,11 @@ public class Sale {
     public ArrayList<ItemDTO> getItemList() {
 	return this.itemList;
     }
-	
+
+    public ArrayList<Integer> getItemQuantity() {
+        return this.itemQuantity;
+    }
+    
     /**
      * 
      * @return Returns the amount of change the customer receives. This value is rounded

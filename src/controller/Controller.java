@@ -18,7 +18,7 @@ public class Controller {
     private InventorySystem inventorySystem;
     private AccountingSystem accountingSystem;
     private CashRegister cashRegister;
-    private double totalPrice;
+    private double runningTotal;
     
     /**
     * Creates a new instance of controller with references to inventorysystem
@@ -75,11 +75,15 @@ public class Controller {
      * Represents the action of the cashier indicating that all items have been registered
      * @return Returns the price of the sale so the cashier and customer can see it.
      */
-    public double indicateAllItemsRegistered() {
-    	totalPrice = sale.getRunningTotal();
-    	return sale.getRunningTotal();
+    public double getRunningTotal() {
+    	runningTotal = sale.getRunningTotal();
+    	return runningTotal;
     }
     
+    public double indicateAllItemsRegistered() {
+        double totalPrice = sale.getTotalPrice();
+        return totalPrice;
+    }
     /**
      * Creates an instance of the receipt class, which contains all the needed
      * information about the sale.
