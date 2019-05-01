@@ -21,7 +21,6 @@ public class Sale {
     private double totalPriceIncludingVAT;
     CashRegister cashRegister;
     boolean itemFlag = false;
-    boolean discountFlag = false;
 
     public Sale (SystemCreator creator){
         this.creator = creator;
@@ -40,6 +39,7 @@ public class Sale {
 	if(itemList.isEmpty()) {
             itemList.add(item);
             itemQuantity.add(quantity);
+            itemFlag = true;
 	}	
 	for(int i = 0; i < itemList.size(); i++) {
             if(itemAlreadyScanned(item, i)) {
@@ -115,7 +115,12 @@ public class Sale {
 	return this.itemList;
     }
 
-    public ArrayList<Integer> getItemQuantity() {
+    /**
+     * 
+     * @return The arrayList ItemQuantity, which contains the quantities for all the
+     * items.
+     */
+    public ArrayList<Integer> getItemQuantityList() {
         return this.itemQuantity;
     }
     
@@ -153,9 +158,15 @@ public class Sale {
         this.itemQuantity.set(i, amount);
     }
     
+    /**
+     * The method sets the parameter item on the specified index in the list.
+     * @param i the index in the list where something is to be set.
+     * @param item the item to be set in the list.
+     */
     public void setItemList(int i, ItemDTO item){
         this.itemList.set(i, item);
     }
+    
     
     private double totalPriceIncludingVAT (){
         this.totalPriceIncludingVAT = this.runningTotal + this.runningTotal*this.VAT;

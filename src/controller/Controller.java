@@ -85,6 +85,11 @@ public class Controller {
     	return runningTotal;
     }
     
+    /**
+     * The method represents the action of the cashier indicating that 
+     * all the items are registered. This means that no more items will be scanned.
+     * @return  the total price of the sale, including VAT.
+     */
     public double indicateAllItemsRegistered() {
         double totalPrice = sale.getTotalPrice();
         return totalPrice;

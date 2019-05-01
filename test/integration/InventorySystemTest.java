@@ -5,6 +5,8 @@
  */
 package integration;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import model.ItemDTO;
 import model.Sale;
 import org.junit.After;
@@ -19,24 +21,23 @@ import static org.junit.Assert.*;
  * @author Erik
  */
 public class InventorySystemTest {
+    private ByteArrayOutputStream outContent;
+    private PrintStream originalSysOut;
+    
     
     public InventorySystemTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
-    public void setUp() {
+    public void setUpStreams() {
+        originalSysOut = System.out;
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
     }
-    
     @After
-    public void tearDown() {
+    public void cleanUpStreams() {
+        outContent = null;
+        System.setOut(originalSysOut);
     }
 
     /**
@@ -62,6 +63,21 @@ public class InventorySystemTest {
         InventorySystem inventorySystem = new InventorySystem();
         int itemIdentifier = 5;
         assertEquals(null, inventorySystem.findItem(itemIdentifier));
+    }
+
+    /**
+     * Test of saveSaleInformation method, of class InventorySystem.
+     */
+    @Test
+    public void testSaveSaleInformation() {
+        System.out.println("saveSaleInformation");
+        Sale sale = null;
+        InventorySystem instance = new InventorySystem();
+        instance.saveSaleInformation(sale);
+        
+        String expResult = "(Inventorysystem updated)";
+        String result = outContent.toString();
+        assertTrue(result.contains(expResult));
     }
     
     

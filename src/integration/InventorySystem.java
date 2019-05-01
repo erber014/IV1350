@@ -38,6 +38,6 @@ public class InventorySystem {
          * @param sale Contains the information about the sale to be saved.
          */
 	public void saveSaleInformation(Sale sale) {
-            
+            System.out.println("(Inventorysystem updated)");
 	}
 }

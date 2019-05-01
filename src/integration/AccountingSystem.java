@@ -18,6 +18,6 @@ public class AccountingSystem {
          * @param sale contains all information about the sale
          */
 	public void saveSaleInformation(Sale sale) {
-            
+            System.out.println("(Accountingsystem updated)");
 	}
 }

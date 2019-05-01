@@ -64,13 +64,6 @@ public class ItemDTO {
 	public int getQuantity() {
 		return this.quantity;
 	}
-	
-        /**
-         * Updates the quantity of an item.
-         * @param quantity Updates the quantity of the item by this amount.
-         */
-	/*public void updateQuantity(int quantity) {
-		this.quantity += quantity;
-	}*/
+
 
 }

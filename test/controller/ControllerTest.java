@@ -87,8 +87,8 @@ public class ControllerTest {
         controller.startNewSale(creator);
         controller.addItem(0, 2);
         controller.pay(40);
-        double total = controller.indicateAllItemsRegistered();
-        assertEquals(25, total, 0.0);
+        double totalPrice = controller.indicateAllItemsRegistered();
+        assertEquals(25, totalPrice, 0.0);
     }
 
     @Test

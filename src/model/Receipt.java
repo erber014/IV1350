@@ -29,7 +29,7 @@ public class Receipt {
 	amountPaid = sale.getAmountPaid();
 	change = sale.getChange();
 	itemList = sale.getItemList();
-        itemQuantity = sale.getItemQuantity();
+        itemQuantity = sale.getItemQuantityList();
 	total = sale.getTotalPrice();
 	dateTime = LocalDateTime.now();
 	time = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
