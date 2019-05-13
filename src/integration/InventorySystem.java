@@ -16,21 +16,29 @@ public class InventorySystem {
             this.inventory[0] = new ItemDTO(10.0, 0, "Banan", 12.5, 0);
             this.inventory[1] = new ItemDTO(15.0, 1, "Äpple", 12.5, 0);
             this.inventory[2] = new ItemDTO(8.5, 2, "Apelsin", 12.5, 0);
+            
 	}
 	/**
          * Finds an item in the inventorysystem with the same itemidentifier
-         * as the one sent in. If no such item exists it returns null
+         * as the one sent in.If no such item exists it returns null
          * @param itemIdentifier The unique number that represents an item in
          * the inventorysystem
          * @return returns an item from the inventorysystem
+         * @throws ItemIdentifierNotFoundException if the method does not find an item
+         * with the corresponding itemidentifier
+         * @throws integration.DatabaseErrorException When there is an error in the database.
          */
-	public ItemDTO findItem(int itemIdentifier) {
-		for(int i = 0; i < inventory.length; i++) {
-			if(inventory[i].getItemIdentifier() == itemIdentifier) {
-				return inventory[i];
-			}
-		}
-		return null;
+	public ItemDTO findItem(int itemIdentifier) throws ItemIdentifierNotFoundException, DatabaseErrorException {
+            for(int i = 0; i < inventory.length; i++) {
+                if (itemIdentifier == 7){
+                    throw new DatabaseErrorException();
+                }    
+                if(inventory[i].getItemIdentifier() == itemIdentifier) {
+                    return inventory[i];
+                }
+            }
+            
+            throw new ItemIdentifierNotFoundException(itemIdentifier);
 	}
 	
         /**

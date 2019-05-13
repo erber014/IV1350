@@ -6,6 +6,8 @@ import model.Receipt;
 import model.Sale;
 import integration.InventorySystem;
 import integration.AccountingSystem;
+import integration.DatabaseErrorException;
+import integration.ItemIdentifierNotFoundException;
 import integration.SystemCreator;
 
 
@@ -47,16 +49,24 @@ public class Controller {
      * addItem adds an item to the current sale aswell as the quantity of that item
      * @param itemIdentifier a unique code that represents a unique item in the inventorysystem
      * @param itemQuantity represents the quantity of the item to be added
+     * @throws ItemIdentifierNotFoundException if the item to be added is not found in the inventory.
+     * @throws controller.AddItemFailedException if there is an error with the database.
      * @return the method returns an item found in the inventorysystem.
      */
-    public ItemDTO addItem(int itemIdentifier, int itemQuantity) {
-    	ItemDTO foundItem = inventorySystem.findItem(itemIdentifier);
-    	if(foundItem != null) {
+    public ItemDTO addItem(int itemIdentifier, int itemQuantity) throws 
+        ItemIdentifierNotFoundException, AddItemFailedException {
+    	try {
+            ItemDTO foundItem = inventorySystem.findItem(itemIdentifier);
+            if(foundItem != null) {
 	    	sale.addItem(foundItem, itemQuantity);
 	    	return foundItem;
-    	} else {
+            } else {
     		return null;
-    	}
+            }
+        } catch (DatabaseErrorException exc) {
+            throw new AddItemFailedException("Could not add the item.(Database error)", exc);
+        }
+
     }
     
     /**

@@ -1,9 +1,13 @@
 package view;
 
+import controller.AddItemFailedException;
 import controller.Controller;
+import integration.ItemIdentifierNotFoundException;
 import integration.Printer;
 import integration.SystemCreator;
+import java.io.IOException;
 import java.lang.Math;
+import logHandler.LogHandler;
 import model.ItemDTO;
 import model.Receipt;
 import model.Sale;
@@ -13,35 +17,53 @@ import model.Sale;
  * how the customer and cashier interacts with the system.
  * @author Erik
  */
-public class View {
+public class View{
 	private Controller controller;
+        private LogHandler logger = new LogHandler();
         
     /**
      * Creates an instance of the view
      * @param controller A reference to an instance of the controller class. Is
      * used to connect the view to the rest of the system.
      */
-    public View(Controller controller) {
+    public View(Controller controller) throws IOException{
         this.controller = controller;
     }
     /**
      * Represents the action of the cashier scanning an item, thereby adding it
-     * to the sale. If the itemidentifier is incorrect it prints an error message.
+     * to the sale.If the itemidentifier is incorrect it prints an error message.
      * @param itemId The identifier of the item, used to find it in the
      * database.
      * @param quantity The quantity of the item that is scanned.
+     * @throws integration.ItemIdentifierNotFoundException If the item to be added cannot be
+     * found in the inventory.
+     * @throws AddItemFailedException If there is an error when trying to add an item.
      */
-    public void addItem(int itemId, int quantity) {
-    	ItemDTO currentItem = controller.addItem(itemId, quantity);
-    	if(currentItem != null) {
-    		printItemOnScreen(currentItem, quantity);
-    	} else {
+    public void addItem(int itemId, int quantity) throws 
+        ItemIdentifierNotFoundException, AddItemFailedException{
+    	try {
+            ItemDTO currentItem = controller.addItem(itemId, quantity);
+            printItemOnScreen(currentItem, quantity);
+            
+        } catch (ItemIdentifierNotFoundException exc) {
+            System.out.println(exc.getMessage());
+            logger.logException(exc);
+        }
+        catch (AddItemFailedException exc) {
+           System.out.println(exc.getMessage());
+           logger.logException(exc);
+        }
+        
+        /*else {
     		System.out.println("Item: not found");
     	}
+        */
     }
 
     /**
      * The method represents the action of the cashier starting a new sale.
+     * @param creator A reference to a systemcreator which gives access to the external
+     * systems InventorySystem and AccountingSystem.
      */
     public void runSale(SystemCreator creator) {
     	controller.startNewSale(creator);
@@ -64,8 +86,6 @@ public class View {
         } else {
             System.out.println("Insufficient ammount paid.");
         }
-        
-    	
     }
     
     /**
@@ -73,12 +93,24 @@ public class View {
      * information about the scanned items aswell as the running total.
      */
     public void addItemsAndPrintToConsole(){
-        addItem(0, 2);
-        addItem(0, 2);
-        addItem(1, 3);
-        addItem(2, 4);
-        addItem(3, 4);
-        addItem(0, 1);
+        try {
+            addItem(0, 2);
+            addItem(0, 2);
+            addItem(1, 3);
+            addItem(2, 4);
+            addItem(3, 4);
+            addItem(0, 1);
+            addItem(7, 5);
+            
+        } catch (ItemIdentifierNotFoundException e) {
+            System.out.println(e.getMessage());
+            logger.logException(e);
+        }
+        catch (AddItemFailedException exc) {
+           System.out.println(exc.getMessage());
+           logger.logException(exc);
+        }
+        
     }
     
     /**
