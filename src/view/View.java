@@ -18,8 +18,8 @@ import model.Sale;
  * @author Erik
  */
 public class View{
-	private Controller controller;
-        private LogHandler logger = new LogHandler();
+    private Controller controller;
+    private LogHandler logger = new LogHandler();
         
     /**
      * Creates an instance of the view
@@ -53,11 +53,6 @@ public class View{
            System.out.println(exc.getMessage());
            logger.logException(exc);
         }
-        
-        /*else {
-    		System.out.println("Item: not found");
-    	}
-        */
     }
 
     /**
@@ -110,7 +105,6 @@ public class View{
            System.out.println(exc.getMessage());
            logger.logException(exc);
         }
-        
     }
     
     /**
