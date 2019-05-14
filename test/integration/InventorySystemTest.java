@@ -46,7 +46,7 @@ public class InventorySystemTest {
      * if the itemIdentifiers match, if it does it returns an item.
      */
     @Test
-    public void testFindItem() {
+    public void testFindItem() throws ItemIdentifierNotFoundException{
         ItemDTO inventory[] = new ItemDTO[1];
         inventory[0] = new ItemDTO(10.0, 0, "Banan", 12.5, 0);
         InventorySystem inventorySystem = new InventorySystem();
@@ -59,12 +59,32 @@ public class InventorySystemTest {
      * Test for the method findItem, in the class InventorySystem. 
      */
     @Test
-    public void testFindItemNotExisting() {
+    public void testFindItemNotExisting() throws ItemIdentifierNotFoundException{
         InventorySystem inventorySystem = new InventorySystem();
         int itemIdentifier = 5;
-        assertEquals(null, inventorySystem.findItem(itemIdentifier));
+        
+        try {
+            ItemDTO foundItem = inventorySystem.findItem(itemIdentifier);
+            fail("Found an item that does not exist, through a nonexisting itemidentifier");
+        } catch (ItemIdentifierNotFoundException exc) {
+            assertTrue("Wrong exception message.", exc.getMessage()
+                .contains("Unable to find item with the corresponding itemidentifer: " + itemIdentifier));
+            assertEquals("Wrong itemidentifier",itemIdentifier,exc.getItemIdentifierThatIsNotFound());
+        }
     }
 
+    @Test
+    public void testFindItemDatabaseError() throws ItemIdentifierNotFoundException, DatabaseErrorException {
+        InventorySystem inventorySystem = new InventorySystem();
+        int itemIdentifier = 7;
+        
+        try {
+            ItemDTO foundItem = inventorySystem.findItem(itemIdentifier);
+        } catch (DatabaseErrorException exc) {
+            assertTrue("Wrong exception message.", exc.getMessage()
+                .contains("There was a database error. This is totally not a message that should be sent to the view."));
+        }
+    }
     /**
      * Test of saveSaleInformation method, of class InventorySystem.
      */

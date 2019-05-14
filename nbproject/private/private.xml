@@ -5,18 +5,22 @@
         <group>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/test/controller/ControllerTest.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/startup/Main.java</file>
+            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/logHandler/LogHandler.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/model/ItemDTO.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/test/integration/AccountingSystemTest.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/integration/SystemCreator.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/model/CashRegister.java</file>
+            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/sale-error-log.txt</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/controller/Controller.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/integration/InventorySystem.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/model/Sale.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/model/Receipt.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/test/integration/InventorySystemTest.java</file>
+            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/integration/DatabaseErrorException.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/integration/AccountingSystem.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/integration/Printer.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/test/model/CashRegisterTest.java</file>
+            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/controller/AddItemFailedException.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/view/View.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/src/integration/ItemIdentifierNotFoundException.java</file>
             <file>file:/C:/Users/Erik/Documents/NetBeansProjects/Seminarie3/test/model/SaleTest.java</file>

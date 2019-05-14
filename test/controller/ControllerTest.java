@@ -7,6 +7,7 @@ package controller;
 
 import integration.AccountingSystem;
 import integration.InventorySystem;
+import integration.ItemIdentifierNotFoundException;
 import integration.SystemCreator;
 import model.CashRegister;
 import model.ItemDTO;
@@ -20,7 +21,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * A testclass for testing methods in the Controller class in package controller.
  * @author Erik
  */
 public class ControllerTest {
@@ -34,39 +35,37 @@ public class ControllerTest {
     Controller controller = new Controller(inventorySystem, accountingSystem, cashRegister);
     
     
-    @BeforeClass
-    public static void setUpClass() {
-        
-        
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-        
-    }
-    
-    @After
-    public void tearDown() {
-    }
-    
     @Test
-    public void addExistingItem() {
+    public void addExistingItem() throws ItemIdentifierNotFoundException, AddItemFailedException{
        controller.startNewSale(creator);
        ItemDTO item = controller.addItem(0, 2);
        assertEquals(0, item.getItemIdentifier());
     }
 
     @Test
-    public void addNonexistingItem() {
-       controller.startNewSale(creator);
-       ItemDTO item = controller.addItem(5, 1);
-       assertEquals(null, item);
+    public void addNonexistingItem() throws ItemIdentifierNotFoundException, AddItemFailedException{
+        controller.startNewSale(creator);
+        try {
+            ItemDTO item = controller.addItem(5, 1);
+            fail("Could find item that doesnt exist with using an incorrect itemidentifier.");
+        } catch (ItemIdentifierNotFoundException exc) {
+            assertTrue("Wrong exception messsage", 
+                    exc.getMessage().contains("Unable to find item with the corresponding itemidentifer: " + 5));
+        }
+        catch (AddItemFailedException exc){
+            fail("There was an exception of this kind");
+            exc.printStackTrace();
+        }
+       
     }
-
+    
+    @Test(expected = AddItemFailedException.class)
+    public void addItemDatabaseFailure() throws AddItemFailedException, ItemIdentifierNotFoundException{
+        controller.startNewSale(creator);
+        ItemDTO item = controller.addItem(7,1);
+    }
+            
+            
     @Test
     public void enoughPaidMoney() {
         controller.startNewSale(creator);
@@ -82,7 +81,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void indicateAllItemsRegistered() {
+    public void indicateAllItemsRegistered() throws ItemIdentifierNotFoundException, AddItemFailedException{
         
         controller.startNewSale(creator);
         controller.addItem(0, 2);
