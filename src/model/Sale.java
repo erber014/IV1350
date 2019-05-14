@@ -5,6 +5,7 @@ import integration.InventorySystem;
 import integration.Printer;
 import integration.SystemCreator;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a sale happening in a grocery store.
@@ -21,6 +22,8 @@ public class Sale {
     private double totalPriceIncludingVAT;
     CashRegister cashRegister;
     boolean itemFlag = false;
+    
+    private List<SaleObserver> saleObservers = new ArrayList<>();
 
     public Sale (SystemCreator creator){
         this.creator = creator;
@@ -84,6 +87,8 @@ public class Sale {
         AccountingSystem accountingSystem = creator.getAccountingSystem();
         inventorySystem.saveSaleInformation(this);
         accountingSystem.saveSaleInformation(this);
+        
+        notifyObservers();
         
         return change;
     }
@@ -167,6 +172,21 @@ public class Sale {
         this.itemList.set(i, item);
     }
     
+    /**
+     * Adds an observer to the list saleObservers
+     * @param saleObs The observer to be added to the list.
+     */
+    public void addSaleObserver(SaleObserver saleObs) {
+        saleObservers.add(saleObs);
+    }
+    
+    /**
+     * All the specified observers will be notified when a sale has been paid for.
+     * @param observers The observers to notify.
+     */
+    public void addSaleObservers(List<SaleObserver> observers) {
+        saleObservers.addAll(observers);
+    }
     
     private double totalPriceIncludingVAT (){
         this.totalPriceIncludingVAT = this.runningTotal + this.runningTotal*this.VAT;
@@ -180,4 +200,11 @@ public class Sale {
         else
             return false;
     }
+    
+    private void notifyObservers() {
+        for(SaleObserver obs: saleObservers) {
+            obs.newSale(this);
+        }
+    }
+    
 }

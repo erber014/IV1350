@@ -27,6 +27,12 @@ public class Main {
             view.addItemsAndPrintToConsole();
             view.pay(200);
             view.printReceipt();
+            
+            view.runSale(creator);
+            view.addItemsAndPrintToConsole();
+            view.pay(200);
+            view.printReceipt();
+     
         } catch (IOException e) {
             e.printStackTrace();
         }

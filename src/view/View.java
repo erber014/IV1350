@@ -19,7 +19,7 @@ import model.Sale;
  */
 public class View{
     private Controller controller;
-    private LogHandler logger = new LogHandler();
+    private LogHandler logger; 
         
     /**
      * Creates an instance of the view
@@ -28,6 +28,8 @@ public class View{
      */
     public View(Controller controller) throws IOException{
         this.controller = controller;
+        controller.addSaleObserver(new TotalRevenueView());
+        this.logger = new LogHandler();
     }
     /**
      * Represents the action of the cashier scanning an item, thereby adding it

@@ -9,6 +9,9 @@ import integration.AccountingSystem;
 import integration.DatabaseErrorException;
 import integration.ItemIdentifierNotFoundException;
 import integration.SystemCreator;
+import java.util.ArrayList;
+import java.util.List;
+import model.SaleObserver;
 
 
 /**
@@ -22,6 +25,9 @@ public class Controller {
     private AccountingSystem accountingSystem;
     private CashRegister cashRegister;
     private double runningTotal;
+    
+    private List<SaleObserver> saleObservers = new ArrayList<>();
+    
     
     /**
     * Creates a new instance of controller with references to inventorysystem
@@ -37,12 +43,22 @@ public class Controller {
     }
     
     /**
+     * The specified observer will be notified when a sale is paid for. There will
+     * be notifications only for sales that are started after this method is called.
+     * @param obs The observer to notify.
+     */
+    public void addSaleObserver(SaleObserver obs) {
+        saleObservers.add(obs);
+    }
+    
+    /**
      * The method creates an instance of the Sale class. It also turns on the
      * cash Register in the grocery store.
      */
     public void startNewSale(SystemCreator creator) {
         sale = new Sale(creator);
         sale.turnOnCashRegister();
+        sale.addSaleObservers(saleObservers);
     }
     
     /**
