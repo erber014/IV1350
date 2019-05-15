@@ -19,7 +19,7 @@ import model.Sale;
  */
 public class View{
     private Controller controller;
-    private LogHandler logger; 
+    
         
     /**
      * Creates an instance of the view
@@ -29,7 +29,6 @@ public class View{
     public View(Controller controller) throws IOException{
         this.controller = controller;
         controller.addSaleObserver(new TotalRevenueView());
-        this.logger = new LogHandler();
     }
     /**
      * Represents the action of the cashier scanning an item, thereby adding it
@@ -42,21 +41,24 @@ public class View{
      * @throws AddItemFailedException If there is an error when trying to add an item.
      */
     public void addItem(int itemId, int quantity) throws 
-        ItemIdentifierNotFoundException, AddItemFailedException{
+        ItemIdentifierNotFoundException, AddItemFailedException, IOException{
     	try {
             ItemDTO currentItem = controller.addItem(itemId, quantity);
             printItemOnScreen(currentItem, quantity);
             
         } catch (ItemIdentifierNotFoundException exc) {
             System.out.println(exc.getMessage());
-            logger.logException(exc);
+            LogHandler.getLogHandler().logException(exc);
         }
         catch (AddItemFailedException exc) {
            System.out.println(exc.getMessage());
-           logger.logException(exc);
+           LogHandler.getLogHandler().logException(exc);
         }
     }
 
+    public void signalDiscountRequest () {
+        controller.requestDiscount();
+    }
     /**
      * The method represents the action of the cashier starting a new sale.
      * @param creator A reference to a systemcreator which gives access to the external
@@ -89,7 +91,7 @@ public class View{
      * This method represents the cashier scanning items, it also prints the
      * information about the scanned items aswell as the running total.
      */
-    public void addItemsAndPrintToConsole(){
+    public void addItemsAndPrintToConsole() throws IOException{
         try {
             addItem(0, 2);
             addItem(0, 2);
@@ -101,11 +103,11 @@ public class View{
             
         } catch (ItemIdentifierNotFoundException e) {
             System.out.println(e.getMessage());
-            logger.logException(e);
+            LogHandler.getLogHandler().logException(e);
         }
         catch (AddItemFailedException exc) {
            System.out.println(exc.getMessage());
-           logger.logException(exc);
+           LogHandler.getLogHandler().logException(exc);
         }
     }
     

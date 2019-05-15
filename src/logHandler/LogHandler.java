@@ -13,13 +13,16 @@ import java.time.format.FormatStyle;
  */
 public class LogHandler {
     private static final String LOG_FILE_NAME = "sale-error-log.txt";
+    
+    private static LogHandler single_instance = null;
+    
     private PrintWriter logFile;
     
     /**
      * Creates a new instance of loghandler.
      * @throws IOException If there is an IO error.
      */
-    public LogHandler() throws IOException {
+    private LogHandler() throws IOException {
         logFile = new PrintWriter(
                     new FileWriter(LOG_FILE_NAME), true);
     }
@@ -41,5 +44,16 @@ public class LogHandler {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         return now.format(dateTimeFormatter);
+    }
+    
+    /**
+     * Method to get the only instance of the Singleton class LogHandler.
+     * @return 
+     */
+    public static LogHandler getLogHandler() throws IOException{
+        if (single_instance == null) {
+            single_instance = new LogHandler();
+        }
+        return single_instance;
     }
 }

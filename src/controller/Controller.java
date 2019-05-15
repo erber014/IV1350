@@ -11,6 +11,7 @@ import integration.ItemIdentifierNotFoundException;
 import integration.SystemCreator;
 import java.util.ArrayList;
 import java.util.List;
+import model.DiscountRules;
 import model.SaleObserver;
 
 
@@ -82,7 +83,6 @@ public class Controller {
         } catch (DatabaseErrorException exc) {
             throw new AddItemFailedException("Could not add the item.(Database error)", exc);
         }
-
     }
     
     /**
@@ -100,6 +100,10 @@ public class Controller {
         } else {
             return -1.0;
         }
+    }
+    
+    public void requestDiscount(){
+        
     }
     
     /**
