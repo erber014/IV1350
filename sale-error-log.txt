@@ -1,32 +1,32 @@
-2 juni 2019 15:08:41,An exception was thrown: Unable to find item with the corresponding itemidentifer: 3
+2 juni 2019 16:12:47,An exception was thrown: Unable to find item with the corresponding itemidentifer: 3
 integration.ItemIdentifierNotFoundException: Unable to find item with the corresponding itemidentifer: 3
 	at integration.InventorySystem.findItem(InventorySystem.java:41)
 	at controller.Controller.addItem(Controller.java:76)
 	at view.View.addItem(View.java:46)
-	at view.View.addItemsAndPrintToConsole(View.java:101)
+	at view.View.addItemsAndPrintToConsole(View.java:107)
 	at startup.Main.main(Main.java:27)
-2 juni 2019 15:08:41,An exception was thrown: Could not add the item.(Database error)
+2 juni 2019 16:12:47,An exception was thrown: Could not add the item.(Database error)
 controller.AddItemFailedException: Could not add the item.(Database error)
 	at controller.Controller.addItem(Controller.java:81)
 	at view.View.addItem(View.java:46)
-	at view.View.addItemsAndPrintToConsole(View.java:103)
+	at view.View.addItemsAndPrintToConsole(View.java:109)
 	at startup.Main.main(Main.java:27)
 Caused by: integration.DatabaseErrorException: There was a database error. This is totally not a message that should be sent to the view.
 	at integration.InventorySystem.findItem(InventorySystem.java:34)
 	at controller.Controller.addItem(Controller.java:76)
 	... 3 more
-2 juni 2019 15:08:41,An exception was thrown: Unable to find item with the corresponding itemidentifer: 3
+2 juni 2019 16:12:47,An exception was thrown: Unable to find item with the corresponding itemidentifer: 3
 integration.ItemIdentifierNotFoundException: Unable to find item with the corresponding itemidentifer: 3
 	at integration.InventorySystem.findItem(InventorySystem.java:41)
 	at controller.Controller.addItem(Controller.java:76)
 	at view.View.addItem(View.java:46)
-	at view.View.addItemsAndPrintToConsole(View.java:101)
+	at view.View.addItemsAndPrintToConsole(View.java:107)
 	at startup.Main.main(Main.java:33)
-2 juni 2019 15:08:41,An exception was thrown: Could not add the item.(Database error)
+2 juni 2019 16:12:47,An exception was thrown: Could not add the item.(Database error)
 controller.AddItemFailedException: Could not add the item.(Database error)
 	at controller.Controller.addItem(Controller.java:81)
 	at view.View.addItem(View.java:46)
-	at view.View.addItemsAndPrintToConsole(View.java:103)
+	at view.View.addItemsAndPrintToConsole(View.java:109)
 	at startup.Main.main(Main.java:33)
 Caused by: integration.DatabaseErrorException: There was a database error. This is totally not a message that should be sent to the view.
 	at integration.InventorySystem.findItem(InventorySystem.java:34)

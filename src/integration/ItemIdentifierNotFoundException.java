@@ -11,8 +11,8 @@ public class ItemIdentifierNotFoundException extends Exception {
      * Creates a new instance of the exception with a descriptive message
      * @param itemIdentifier The itemidentifier that could not be found.
      */
-    public  ItemIdentifierNotFoundException (int itemIdentifier){
-        super("Unable to find item with the corresponding itemidentifer: " + itemIdentifier);
+    public  ItemIdentifierNotFoundException (String msg, int itemIdentifier){
+        super(msg + itemIdentifier);
         this.ItemIdentifierThatIsNotFound = itemIdentifier;
     }
     

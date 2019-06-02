@@ -31,14 +31,14 @@ public class InventorySystem {
 	public ItemDTO findItem(int itemIdentifier) throws ItemIdentifierNotFoundException, DatabaseErrorException {
             for(int i = 0; i < inventory.length; i++) {
                 if (itemIdentifier == 7){
-                    throw new DatabaseErrorException();
+                    throw new DatabaseErrorException("There was a database error.");
                 }    
                 if(inventory[i].getItemIdentifier() == itemIdentifier) {
                     return inventory[i];
                 }
             }
             
-            throw new ItemIdentifierNotFoundException(itemIdentifier);
+            throw new ItemIdentifierNotFoundException("Unable to find item with the corresponding itemidentifer: ", itemIdentifier);
 	}
 	
         /**

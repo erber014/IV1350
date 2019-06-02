@@ -1,7 +1,7 @@
 package model;
 
 /**
- *
+ * Represents the rules which determines what discount a customer gets on their purchase.
  * @author Erik
  */
 public class DiscountRules {

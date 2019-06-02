@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ * An interface which helps define different strategies for applying a discount.
  * @author Erik
  */
 public interface DiscountStrategy {

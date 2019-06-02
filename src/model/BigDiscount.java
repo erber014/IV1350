@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ * One strategy for determining a discount
  * @author Erik
  */
 public class BigDiscount implements DiscountStrategy{
