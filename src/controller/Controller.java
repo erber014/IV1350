@@ -74,12 +74,9 @@ public class Controller {
         ItemIdentifierNotFoundException, AddItemFailedException {
     	try {
             ItemDTO foundItem = inventorySystem.findItem(itemIdentifier);
-            if(foundItem != null) {
-	    	sale.addItem(foundItem, itemQuantity);
-	    	return foundItem;
-            } else {
-    		return null;
-            }
+            sale.addItem(foundItem, itemQuantity);
+            return foundItem;
+
         } catch (DatabaseErrorException exc) {
             throw new AddItemFailedException("Could not add the item.(Database error)", exc);
         }
@@ -102,8 +99,13 @@ public class Controller {
         }
     }
     
-    public void requestDiscount(){
-        
+    /**
+     * Applies a discount to the price of the sale. The amount that is discounted
+     * is depentent on the customerID
+     * @param customerID the number that determines how much is discounted.
+     */
+    public void requestDiscount(int customerID){
+        sale.applyDiscount(customerID);
     }
     
     /**

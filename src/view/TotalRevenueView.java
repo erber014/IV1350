@@ -34,7 +34,7 @@ public class TotalRevenueView implements SaleObserver{
     }
     
     private void addNewSale(Sale sale) {
-        Sales.add(sale.getAmountPaid());
+        Sales.add(sale.getTotalPrice());
     }
     
     private void printCurrentState() {

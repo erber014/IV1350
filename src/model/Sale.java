@@ -69,6 +69,18 @@ public class Sale {
     }
     
     /**
+     * Applies a discount to the price of the sale. The amount that is discounted
+     * is dependent on customerID
+     * @param customerID The number that determines how much the price is discounted.
+     */
+    public void applyDiscount(int customerID){
+        DiscountRules discountRules = new DiscountRules();
+        
+        double discountedPrice = discountRules.calculateDiscount(customerID, this.runningTotal);
+        this.runningTotal = discountedPrice;
+    }
+    
+    /**
      * pay represents the action of the customer paying for the sale. The pay method
      * sends the information about the sale, to the external systems InventorySystem
      * and AccountingSystem, so that the information may be saved.

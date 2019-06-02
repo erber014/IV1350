@@ -25,11 +25,13 @@ public class Main {
             Printer printer = new Printer();
             view.runSale(creator);
             view.addItemsAndPrintToConsole();
+            view.signalDiscountRequest(6);
             view.pay(200);
             view.printReceipt();
             
             view.runSale(creator);
             view.addItemsAndPrintToConsole();
+            view.signalDiscountRequest(1);
             view.pay(200);
             view.printReceipt();
      

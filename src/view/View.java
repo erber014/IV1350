@@ -55,9 +55,16 @@ public class View{
            LogHandler.getLogHandler().logException(exc);
         }
     }
-
-    public void signalDiscountRequest () {
-        controller.requestDiscount();
+    
+    /**
+     * Represents the action of a customer requesting a discount.
+     * Which discount the customer gets is determined by the customerID-
+     * @param customerID The number which determines how much the price of the sale
+     * is discounted.
+     */
+    public void signalDiscountRequest (int customerID) {
+        controller.requestDiscount(customerID);
+        System.out.println("Customer has requested a discount");
     }
     /**
      * The method represents the action of the cashier starting a new sale.
